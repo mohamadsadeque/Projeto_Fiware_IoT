@@ -131,7 +131,7 @@ services:
       start_period: 5s
       
 # Persistent Data
-   fiware-sth-comet:
+  fiware-sth-comet:
      image: telefonicaiot/fiware-sth-comet
      restart: always
      hostname: sth-comet

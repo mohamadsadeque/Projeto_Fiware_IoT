@@ -137,7 +137,6 @@ case "${command}" in
 		waitForMongo
 		addDatabaseIndex
 		waitForOrion
-		waitForSTHComet
 		loadData
 		displayServices
 		echo -e "Now open \033[4mhttp://localhost:3000/device/monitor\033[0m"
