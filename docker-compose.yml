@@ -129,7 +129,23 @@ services:
       timeout: 5s
       retries: 3
       start_period: 5s
-    
+      
+# Persistent Data
+   fiware-sth-comet:
+     image: telefonicaiot/fiware-sth-comet
+     restart: always
+     hostname: sth-comet
+     container_name: fiware-sth-comet
+     depends_on:
+       - mongo-db
+     ports:
+       - "8666:8666"
+     environment:
+       - STH_HOST=0.0.0.0
+       - STH_PORT=8666
+       - DB_PREFIX=sth_
+       - DB_URI=mongo-db:27017
+       - LOGOPS_LEVEL=DEBUG    
 
 networks:
   default:
