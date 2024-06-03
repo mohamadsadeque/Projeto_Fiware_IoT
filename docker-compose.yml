@@ -4,7 +4,7 @@ services:
   # Orion is an NGSI-v2 context broker
   orion-v2:
     labels:
-      org.fiware: 'iot'
+      org.fiware: 'tutorial'
     image: quay.io/fiware/orion:${ORION_VERSION}
     hostname: orion
     container_name: fiware-orion
@@ -24,7 +24,7 @@ services:
   # IoT-Agent is configured for the UltraLight Protocol
   iot-agent:
     labels:
-      org.fiware: 'iot'
+      org.fiware: 'tutorial'
     image: quay.io/fiware/iotagent-ul:${ULTRALIGHT_VERSION}
     hostname: iot-agent
     container_name: fiware-iot-agent
@@ -58,9 +58,9 @@ services:
 
 
 
-  iot:
+  tutorial:
     labels:
-      org.fiware: 'iot'
+      org.fiware: 'tutorial'
     image: quay.io/fiware/tutorials.context-provider
     hostname: iot-sensors
     container_name: fiware-iot
@@ -70,7 +70,7 @@ services:
     networks:
       default:
         aliases:
-          - iot
+          - tutorial
           - context-provider
     expose:
       - "${APP_PORT}"
@@ -80,7 +80,7 @@ services:
       - "${DUMMY_DEVICE_PORT}:${DUMMY_DEVICE_PORT}" # localhost:3001
     environment:
       - "MONGO_URL=mongodb://mongo-db:27017"
-      - "DEBUG=iot:*"
+      - "DEBUG=tutorial:*"
       - "WEB_APP_PORT=${APP_PORT}" # Port used by the content provider proxy and web-app for viewing data
       - "IOTA_HTTP_HOST=iot-agent"
       - "IOTA_HTTP_PORT=${IOTA_SOUTH_PORT}"
@@ -117,7 +117,7 @@ services:
   # Database
   mongo-db:
     labels:
-      org.fiware: 'iot'
+      org.fiware: 'tutorial'
     image: mongo:${MONGO_DB_VERSION}
     hostname: mongo-db
     container_name: db-mongo
@@ -156,7 +156,7 @@ services:
 networks:
   default:
     labels:
-      org.fiware: 'iot'
+      org.fiware: 'tutorial'
     ipam:
       config:
         - subnet: 172.18.1.0/24
