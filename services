@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  Command Line Interface to start all services associated with the Tutorial
+#  Command Line Interface to start all services
 #
 #  For this tutorial the commands are merely a convenience script to run docker or docker-compose
 #
@@ -36,7 +36,7 @@ loadData () {
 }
 
 stoppingContainers () {
-	CONTAINERS=$(docker ps --filter "label=org.fiware=tutorial" -aq)
+	CONTAINERS=$(docker ps --filter "label=org.fiware=iot" -aq)
 	if [[ -n $CONTAINERS ]]; then 
 		echo "Stopping containers"
 		docker rm -f $CONTAINERS || true
@@ -46,9 +46,9 @@ stoppingContainers () {
 		echo "Removing old volumes"
 		docker volume rm $VOLUMES || true
 	fi
-	NETWORKS=$(docker network ls  --filter "label=org.fiware=tutorial" -q) 
+	NETWORKS=$(docker network ls  --filter "label=org.fiware=iot" -q) 
 	if [[ -n $NETWORKS ]]; then 
-		echo "Removing tutorial networks"
+		echo "Removing iot networks"
 		docker network rm $NETWORKS || true
 	fi
 }
@@ -127,11 +127,11 @@ case "${command}" in
 	"start")
 		export $(cat .env | grep "#" -v)
 		stoppingContainers
-		echo -e "Starting containers: \033[1;34mOrion\033[0m, \033[1;36mIoT-Agent\033[0m,\033[1;35mSTH-Comet\033[0m, \033[1mTutorial\033[0m and a \033[1mMongoDB\033[0m database."
+		echo -e "Starting containers: \033[1;34mOrion\033[0m, \033[1;36mIoT-Agent\033[0m,\033[1;35mSTH-Comet\033[0m, \033[1mIot\033[0m and a \033[1mMongoDB\033[0m database."
 		echo -e "- \033[1;34mOrion\033[0m is the context broker"
 		echo -e "- \033[1;36mIoT-Agent\033[0m is configured for the UltraLight Protocol"
 		echo -e "- \033[1;35mSTH-Comet\033[0m is the Short-Term Historic component"
-		echo -e "- \033[1mTutorial\033[0m acts as a series of dummy IoT Sensors over HTTP"
+		echo -e "- \033[1mIot\033[0m acts as a series of dummy IoT Sensors over HTTP"
 		echo ""
 		${dockerCmd} up -d --remove-orphans
 		waitForMongo
